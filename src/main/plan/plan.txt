@@ -20,3 +20,19 @@
 -> 추가 구현 가능 : N번 로그인 시 추가 포인트 지급
                 유저 간 포인트 증여 가능
                 포인트를 이용한 간단한 게임 구현
+
+
+
+Data
+
+member_number : int
+member_id : String
+member_pw : String
+member_point : int
+
+
+
+Naver Login
+
+id: p3FX2vA2FKLfq61lwbVa
+pw: FGVSNWhQNX
