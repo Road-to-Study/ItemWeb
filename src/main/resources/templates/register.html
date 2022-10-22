@@ -1,20 +1,48 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
+    <style>
+        .field-error {
+        border-color: #dc3545;
+        color: #dc3545;
+        }
+    </style>
 </head>
 <body>
 
-<form action="/register" method="POST">
+<form action="" th:action th:object="${member}" method="post">
 
-    ID : <input type = "text" name="register_id"><br><br>
-    PW : <input type = "password" name="register_pw1"><br><br>
-    PW 확인 : <input type = "password" name="register_pw2"><br><br>
+    <div>
+        ID :
+        <input type = "text" id="member_id" th:field="*{member_id}" class="form-control"
+            th:errorclass="field-error" placeholder="아이디를 입력하세요">
+        <div class="field-error" th:errors="*{member_id}">아이디 오류</div>
+        <br><br>
+    </div>
 
-    <input type = "submit" name="register_submit" value="회원가입 완료">
+    <div>
+        PW :
+        <input type = "password" id="member_pw" th:field="*{member_pw}" class="form-control"
+               th:errorclass="field-error">
+        <div class="field-error" th:errors="*{member_pw}">비밀번호 오류</div>
+        <br><br>
+    </div>
+    <div>
+        PW 확인 :
+        <input type = "password" id="member_pw2" th:field="*{member_pw2}" class="form-control"
+               th:errorclass="field-error">
+        <div class="field-error" th:errors="*{member_pw2}">비밀번호 오류</div>
+        <br><br>
+    </div>
 
+    <div th:if="${#fields.hasGlobalErrors()}">
+        <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">글로벌 오류 메시지</p>
+    </div>
 
+    <button type="submit">회원 가입</button>
 
 </form>
 
