@@ -26,7 +26,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
             return false;
         }
 
-        log.info("로그인 인증 성공공");
+        log.info("로그인 인증 성공");
         return true;
     }
 }
