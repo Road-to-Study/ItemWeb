@@ -22,7 +22,8 @@
         <div class="field-error" th:errors="*{member_id}">아이디 오류</div>
         <br><br>
     </div>
-
+</form>
+<form action="" th:action th:object="${member}" method="post">
     <div>
         PW :
         <input type = "password" id="member_pw" th:field="*{member_pw}" class="form-control"
