@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<form action="" th:action th:object="${member}" method="post">
+<form action="register" th:action th:object="${member}" method="post">
 
     <div>
         ID :
@@ -25,7 +25,7 @@
 </form>
 <form action="" th:action th:object="${member}" method="post">
     <div>
-        PW :
+        PW (4자리 숫자) :
         <input type = "password" id="member_pw" th:field="*{member_pw}" class="form-control"
                th:errorclass="field-error">
         <div class="field-error" th:errors="*{member_pw}">비밀번호 오류</div>

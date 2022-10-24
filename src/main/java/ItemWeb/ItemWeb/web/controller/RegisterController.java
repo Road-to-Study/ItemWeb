@@ -34,7 +34,7 @@ public class RegisterController {
         //아이디 중복 검사, 오류검사 중에서 가장 먼저 실행
         Optional<Member> hasSameIdMember = memberRepository.findById(form.getMember_id());
         if (hasSameIdMember.isPresent()) {
-            bindingResult.rejectValue("member_id", "idDuplication", "중복된 아이디가 존재합니다.");
+            bindingResult.rejectValue("member_id", "idDication", "중복된 아이디가 존재합니다.");
             return "/register";
         }
 
@@ -46,7 +46,7 @@ public class RegisterController {
 
         //입력한 두 패스워드가 서로 다를 때 (복합 필드 검증)
         if(!form.getMember_pw().equals(form.getMember_pw2())) {
-            bindingResult.reject("differentPassword", "비밀번호가 다릅니다."); // errors.properties 추가는 안함
+            bindingResult.reject("differentPassword", "두 비밀번호가 다릅니다."); // errors.properties 추가는 안함
             return "/register";
         }
 
@@ -61,6 +61,7 @@ public class RegisterController {
         memberRepository.register(member);
 
         // 회원가입 성공 문구 필요
+
 
         // 회원가입 성공 후 홈으로 리다이렉트
         return "redirect:/";

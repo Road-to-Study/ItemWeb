@@ -11,7 +11,10 @@
 <body>
 Point를 모아보자
 
-<h4 th:text="|로그인 ${member.member_id}|">로그인 사용자 아이디</h4>
+<h4 th:text="|사용자 아이디 : ${member.member_id}|">로그인 사용자 아이디</h4>
+<h4 th:text="|사용자 보유 포인트 : ${member.member_point}|">사용자 보유 포인트</h4>
+
+
 
 <form th:action="@{/logout}" method="post">
     <button type="submit">로그아웃</button>

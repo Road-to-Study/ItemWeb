@@ -89,7 +89,7 @@ function naverLogout() {
 </script>
 
 <div>
-    <form action="" th:action th:object="${member}" method="POST">
+    <form action="login" th:action th:object="${member}" method="POST">
 
         <div th:if="${#fields.hasGlobalErrors()}">
             <p class="field-error" th:each="err : ${#fields.globalErrors()}"
