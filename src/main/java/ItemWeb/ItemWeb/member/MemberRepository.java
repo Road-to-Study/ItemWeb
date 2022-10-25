@@ -14,9 +14,30 @@ public class MemberRepository {
 
     public Member register(Member member) {
         member.setMember_number(++sequence);
+        member.setMember_point(100); // 회원 가입 성공 시 기본 포인트 100 지급, RegisterController 내에서 해야될지 memberController에서 해야될지 고민
         log.info("회원가입 member={}", member);
         member_map.put(member.getMember_number(), member);
         return member;
+    }
+
+    public Member update(int number, int point) {
+
+        Member pointMember = findByNumber(number);
+        if (pointMember == null) { // 존재하지 않는 id를 update 하려고 할 때
+            return null;
+        }
+        pointMember.setMember_point(point);
+        return pointMember;
+    }
+
+    public Member remove(int number) {
+
+        Member removeMember = findByNumber(number);
+        if (removeMember == null) { //존재하지 않는 id를 remove 하려고 할 때
+            return null;
+        }
+        member_map.remove(removeMember.getMember_number());
+        return removeMember;
     }
 
     public Member findByNumber(int number) {

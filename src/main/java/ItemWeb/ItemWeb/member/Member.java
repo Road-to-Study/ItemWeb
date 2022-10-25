@@ -17,4 +17,6 @@ public class Member {
     private String member_pw;
 
     private int member_point;
+
+    private Grade grade;
 }

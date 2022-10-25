@@ -1,24 +1,15 @@
-<!doctype html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Main Page</title>
+    <title>Title</title>
 </head>
 <body>
-Point를 모아보자
+관리지 페이지
 
-<h4 th:text="|사용자 아이디 : ${member.member_id}|">로그인 사용자 아이디</h4>
-<h4 th:text="|사용자 보유 포인트 : ${member.member_point}|">사용자 보유 포인트</h4>
-
-
-
-<form th:action="@{/logout}" method="post">
-    <button type="submit">로그아웃</button>
-</form>
+<button type="button" onclick="location.href='admin/point' ">포인트 관리</button>
+<button type="button" onclick="location.href='admin/remove' ">회원 관리</button>
 
 <!-- 랭킹보드 -->
 <h2> 현재 랭킹 </h2>
@@ -37,10 +28,16 @@ Point를 모아보자
             <td th:text="${m.member_number}">No.</td>
             <td th:text="${m.member_id}">ID</td>
             <td th:text="${m.member_point}">포인트</td>
+            <td>
+                <form th:action="@{/point/(member_point=${m.member_number})}" method="post">
+                    <input type="text" id="member_point">
+                    <button type="submit">포인트 업데이트</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
 </div>
-
 </body>
+</html>
 </html>

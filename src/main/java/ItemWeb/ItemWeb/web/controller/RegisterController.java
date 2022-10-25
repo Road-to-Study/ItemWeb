@@ -1,5 +1,6 @@
 package ItemWeb.ItemWeb.web.controller;
 
+import ItemWeb.ItemWeb.member.Grade;
 import ItemWeb.ItemWeb.member.Member;
 import ItemWeb.ItemWeb.member.MemberRepository;
 import ItemWeb.ItemWeb.web.form.RegisterForm;
@@ -22,7 +23,7 @@ public class RegisterController {
     private final MemberRepository memberRepository;
 
     @GetMapping("/register")
-    public String register(@ModelAttribute("member") RegisterForm form){
+    public String register(@ModelAttribute("member") RegisterForm form) {
         return "register";
     }
 
@@ -39,13 +40,13 @@ public class RegisterController {
         }
 
         //검증 실패 시 다시 회원가입 페이지으로
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             log.info("error : {}", bindingResult);
             return "/register";
         }
 
         //입력한 두 패스워드가 서로 다를 때 (복합 필드 검증)
-        if(!form.getMember_pw().equals(form.getMember_pw2())) {
+        if (!form.getMember_pw().equals(form.getMember_pw2())) {
             bindingResult.reject("differentPassword", "두 비밀번호가 다릅니다."); // errors.properties 추가는 안함
             return "/register";
         }
@@ -54,7 +55,7 @@ public class RegisterController {
         Member member = new Member();
         member.setMember_id(form.getMember_id());
         member.setMember_pw(form.getMember_pw());
-        member.setMember_point(100); // 회원 가입 성공 시 기본 포인트 100 지급
+        member.setGrade(Grade.NORMAL);
         log.info("member = {}", member);
 
         // 회원 레포지토리에 저장
@@ -66,4 +67,5 @@ public class RegisterController {
         // 회원가입 성공 후 홈으로 리다이렉트
         return "redirect:/";
     }
+
 }

@@ -33,13 +33,12 @@ public class LoginController {
                          @RequestParam(defaultValue = "/") String redirectURL,
                          HttpServletRequest request) {
 
-        // 관리자 계정으로 로그인 한 경우 관리자 페이지로 이동 ( id=admin pw=1234 )
-
-        if(form.getMember_id().equals("admin") && form.getMember_pw().equals("1234")){
-            log.warn(form.getMember_id());
-            return "admin";
-        }
-
+//        // 관리자 계정으로 로그인 한 경우 관리자 페이지로 이동 ( id=admin pw=1234 )
+//
+//        if(form.getMember_id().equals("admin") && form.getMember_pw().equals("1234")){
+//            log.warn(form.getMember_id());
+//            return "admin";
+//        }
 
         if (bindingResult.hasErrors()) {
             return "/login";
@@ -52,13 +51,8 @@ public class LoginController {
             return "/login";
         }
 
-
-
         log.warn(member.getMember_id());
         log.warn(member.getMember_pw());
-
-
-
 
         // 로그인 성공 처리 - 세션 쿠키
 
