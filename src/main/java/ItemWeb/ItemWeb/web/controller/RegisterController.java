@@ -1,10 +1,12 @@
 package ItemWeb.ItemWeb.web.controller;
 
 import ItemWeb.ItemWeb.member.Member;
-import ItemWeb.ItemWeb.member.MemberRepository;
+
+import ItemWeb.ItemWeb.repository.MemberRepository;
 import ItemWeb.ItemWeb.web.form.RegisterForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -19,6 +21,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class RegisterController {
 
+    @Autowired
     private final MemberRepository memberRepository;
 
     @GetMapping("/register")
@@ -29,14 +32,8 @@ public class RegisterController {
     @PostMapping("/register")
     public String register2(@Validated @ModelAttribute("member") RegisterForm form, BindingResult bindingResult) {
         log.info("MemberRegisterForm = {}", form);
-        //회원가입 가능 여부 검사 (RegisterCheck 클래스 이용 -> valid 이용)
+        //회원가입 가능 여부 검사 중복 아이디 체크 구현 필요
 
-        //아이디 중복 검사, 오류검사 중에서 가장 먼저 실행
-        Optional<Member> hasSameIdMember = memberRepository.findById(form.getMember_id());
-        if (hasSameIdMember.isPresent()) {
-            bindingResult.rejectValue("member_id", "idDication", "중복된 아이디가 존재합니다.");
-            return "/register";
-        }
 
         //검증 실패 시 다시 회원가입 페이지으로
         if(bindingResult.hasErrors()) {
@@ -54,14 +51,13 @@ public class RegisterController {
         Member member = new Member();
         member.setMember_id(form.getMember_id());
         member.setMember_pw(form.getMember_pw());
-        member.setMember_point(100); // 회원 가입 성공 시 기본 포인트 100 지급
+        member.setMember_point(90); // 회원 가입 성공 시 기본 포인트 90 지급 (첫 로그인 시 10포인트 추가 지급)
         log.info("member = {}", member);
 
         // 회원 레포지토리에 저장
-        memberRepository.register(member);
+        memberRepository.save(member);
 
         // 회원가입 성공 문구 필요
-
 
         // 회원가입 성공 후 홈으로 리다이렉트
         return "redirect:/";
